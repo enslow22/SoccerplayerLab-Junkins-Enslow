@@ -55,6 +55,14 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public SoccerPlayer getPlayer(String firstName, String lastName) {
+        //create key to look up in hash
+        String keyName = firstName + "##" + lastName;
+        if (database.containsKey(keyName))
+        {
+            return (SoccerPlayer) database.get(keyName);
+        }
+
+        //if the player doesn't exist, just returns null
         return null;
     }
 
