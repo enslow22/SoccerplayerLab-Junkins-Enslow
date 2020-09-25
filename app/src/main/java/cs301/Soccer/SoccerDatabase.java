@@ -199,9 +199,7 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     // report number of players on a given team (or all players, if null)
-    public int numPlayers(String teamName) {
-        return -1;
-    }
+    public int numPlayers(String teamName) { return -1; }
 
     /**
      * gives the nth player on a the given team
