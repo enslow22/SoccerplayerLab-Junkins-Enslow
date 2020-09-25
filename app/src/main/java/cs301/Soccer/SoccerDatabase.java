@@ -229,6 +229,21 @@ public class SoccerDatabase implements SoccerDB {
     // get the nTH player
     @Override
     public SoccerPlayer playerNum(int idx, String teamName) {
+        int numberPlayers = numPlayers(teamName);
+        if (idx >= numberPlayers)
+        {
+            return null;
+        }
+
+        Enumeration keys = database.keys();
+        for (int i = 0; i <= idx; i++){
+            if (i == idx){
+                String tempKey = (String) keys.nextElement();
+                return (SoccerPlayer) database.get(tempKey);
+            }
+            keys.nextElement();
+        }
+
         return null;
     }
 
