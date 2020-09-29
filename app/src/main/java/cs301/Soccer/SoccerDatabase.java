@@ -267,9 +267,9 @@ public class SoccerDatabase implements SoccerDB {
     // write data to file
     @Override
     public boolean writeData(File file) {
+        FileWriter writer = null;
         try {
-            FileWriter writer = new FileWriter(file);
-            writer.write("Howdy");
+            writer = new FileWriter(file);
         } catch (Exception e) {
             Log.e("File writing", "writing failed");
             return false;
@@ -281,6 +281,23 @@ public class SoccerDatabase implements SoccerDB {
         for (int i = 0; i < numPlayers(null); i++){
             String tempKey = (String) keys.nextElement();
             SoccerPlayer tempPlayer = (SoccerPlayer) database.get(tempKey);
+            try {
+                writer.write(logString(tempPlayer.getFirstName()+"\n"));
+                writer.write(logString(tempPlayer.getLastName()+"\n"));
+                writer.write(logString(tempPlayer.getUniform()+"\n"));
+                writer.write(logString(tempPlayer.getTeamName()+"\n"));
+                writer.write(logString(tempPlayer.getGoals()+"\n"));
+                writer.write(logString(tempPlayer.getAssists()+"\n"));
+                writer.write(logString(tempPlayer.getShots()+"\n"));
+                writer.write(logString(tempPlayer.getFouls()+"\n"));
+                writer.write(logString(tempPlayer.getSaves()+"\n"));
+                writer.write(logString(tempPlayer.getYellowCards()+"\n"));
+                writer.write(logString(tempPlayer.getRedCards()+"\n"));
+            }
+            catch(Exception e){
+                Log.e("Tile writing","Writing failed");
+                return false;
+            }
 
         }
 
