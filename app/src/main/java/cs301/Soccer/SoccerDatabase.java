@@ -3,6 +3,7 @@ package cs301.Soccer;
 import android.util.Log;
 import cs301.Soccer.soccerPlayer.SoccerPlayer;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -266,7 +267,25 @@ public class SoccerDatabase implements SoccerDB {
     // write data to file
     @Override
     public boolean writeData(File file) {
-        return false;
+        try {
+            FileWriter writer = new FileWriter(file);
+            writer.write("Howdy");
+        } catch (Exception e) {
+            Log.e("File writing", "writing failed");
+            return false;
+        }
+
+
+        Enumeration keys = database.keys();
+
+        for (int i = 0; i < numPlayers(null); i++){
+            String tempKey = (String) keys.nextElement();
+            SoccerPlayer tempPlayer = (SoccerPlayer) database.get(tempKey);
+
+        }
+
+        return true;
+
     }
 
     /**
