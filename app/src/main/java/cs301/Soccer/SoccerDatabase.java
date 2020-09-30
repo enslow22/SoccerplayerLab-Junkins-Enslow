@@ -238,17 +238,37 @@ public class SoccerDatabase implements SoccerDB {
         {
             return null;
         }
-
         Enumeration keys = database.keys();
-        for (int i = 0; i <= idx; i++){
-            if (i == idx){
-                String tempKey = (String) keys.nextElement();
-                return (SoccerPlayer) database.get(tempKey);
-            }
-            keys.nextElement();
-        }
 
+
+        if (teamName == null) {
+            for (int i = 0; i <= idx; i++) {
+                if (i == idx) {
+                    String tempKey = (String) keys.nextElement();
+                    return (SoccerPlayer) database.get(tempKey);
+                }
+                keys.nextElement();
+            }
+            return null;
+        }
+        else{
+            int i = 0;
+            int c = 0;
+            while(i<=idx&&c<database.size()){
+                String tempKey = (String) keys.nextElement();
+                SoccerPlayer tempPlayer = (SoccerPlayer) database.get(tempKey);
+                if (tempPlayer.getTeamName().equals(teamName)){
+                    if (i==idx)
+                    {
+                        return tempPlayer;
+                    }
+                    i++;
+                }
+                c++;
+            }
+        }
         return null;
+
     }
 
     /**
