@@ -2,7 +2,10 @@ package cs301.Soccer;
 
 import android.util.Log;
 import cs301.Soccer.soccerPlayer.SoccerPlayer;
+
+import java.io.EOFException;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -256,6 +259,83 @@ public class SoccerDatabase implements SoccerDB {
     // read data from file
     @Override
     public boolean readData(File file) {
+        Scanner s = null;
+        try {
+            s = new Scanner(file);
+        } catch (Exception e) {
+            Log.e("File reading", "reading failed");
+            return false;
+        }
+
+        while(s.hasNext())
+        {
+            String fn = s.nextLine();
+            String ln = s.nextLine();
+            int un =  Integer.parseInt(s.nextLine());
+            String tn = s.nextLine();
+            SoccerPlayer tempPlayer = new SoccerPlayer(fn,ln,un,tn);
+            for (int i=0; i<Integer.parseInt(s.nextLine());i++)
+            {
+                tempPlayer.bumpGoals();
+            }
+            for (int i=0; i<Integer.parseInt(s.nextLine());i++)
+            {
+                tempPlayer.bumpAssists();
+            }
+            for (int i=0; i<Integer.parseInt(s.nextLine());i++)
+            {
+                tempPlayer.bumpShots();
+            }
+            for (int i=0; i<Integer.parseInt(s.nextLine());i++)
+            {
+                tempPlayer.bumpFouls();
+            }
+            for (int i=0; i<Integer.parseInt(s.nextLine());i++)
+            {
+                tempPlayer.bumpSaves();
+            }
+            for (int i=0; i<Integer.parseInt(s.nextLine());i++)
+            {
+                tempPlayer.bumpYellowCards();
+            }
+            for (int i=0; i<Integer.parseInt(s.nextLine());i++)
+            {
+                tempPlayer.bumpRedCards();
+            }
+            String keyname = fn+"##"+ln;
+            
+            if (database.containsKey(keyname)) {
+                database.remove(keyname);
+            }
+            database.put(keyname,tempPlayer);
+        }
+
+        /**
+        boolean EOF = false;
+        while (!EOF) {
+            for (int i = 0; i < 11; i++) {
+                try {
+
+
+
+
+                } catch (EOFException e) {
+                    Log.e("EOF", "Reached End of File");
+                    EOF = true;
+                    break;
+                } catch (Exception e) {
+                    Log.e("Fail", "Reading failed");
+                    return false;
+                }
+            }
+        }
+         */
+
+
+
+
+
+
         return file.exists();
     }
 
