@@ -266,7 +266,7 @@ public class SoccerDatabase implements SoccerDB {
             Log.e("File reading", "reading failed");
             return false;
         }
-
+        boolean test = s.hasNext();
         while(s.hasNext())
         {
             String fn = s.nextLine();
@@ -309,31 +309,6 @@ public class SoccerDatabase implements SoccerDB {
             }
             database.put(keyname,tempPlayer);
         }
-
-        /**
-        boolean EOF = false;
-        while (!EOF) {
-            for (int i = 0; i < 11; i++) {
-                try {
-
-
-
-
-                } catch (EOFException e) {
-                    Log.e("EOF", "Reached End of File");
-                    EOF = true;
-                    break;
-                } catch (Exception e) {
-                    Log.e("Fail", "Reading failed");
-                    return false;
-                }
-            }
-        }
-         */
-
-
-
-
 
 
         return file.exists();
@@ -380,7 +355,11 @@ public class SoccerDatabase implements SoccerDB {
             }
 
         }
-
+        try {
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return true;
 
     }
